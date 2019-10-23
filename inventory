@@ -1,0 +1,9 @@
+[winzozz]
+192.168.43.243
+
+[winzozz:vars]
+ansible_user=Administrator
+ansible_password=Fuckyou87
+ansible_connection=winrm
+ansible_winrm_transport=ntlm
+ansible_port=5985

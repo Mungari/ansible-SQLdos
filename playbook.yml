@@ -1,0 +1,7 @@
+---
+- name: Install SQL
+  hosts: winzozz
+  tasks:
+  - name: fuuu
+    import_role:
+      name: Install-SQLServer

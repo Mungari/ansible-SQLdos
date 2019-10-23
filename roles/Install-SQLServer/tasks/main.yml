@@ -1,0 +1,31 @@
+---
+# tasks file for Install-SQLServer/
+- name: Check if file exist
+  win_stat:
+    path: "C:/config.INI"
+  register: result
+
+- debug:
+    msg: "{{ result }}"
+
+- name: copy file
+  win_template:
+    src: ../templates/config.INI.j2
+    dest: 'C:\SQLServer2017Media\Developer_ENU\config.INI'
+  when: not result['stat']['exists']
+
+- name: Install
+  win_package:
+    path: 'C:\SQLServer2017Media\Developer_ENU\SETUP.EXE'
+    product_id: SQLServer
+    arguments:
+      - /ConfigurationFile=C:\SQLServer2017Media\Developer_ENU\config.INI
+      - /SQLSVCPASSWORD="Passw0rdSQL"
+      - /AGTSVCPASSWORD="Passw0rdSQL"
+      - /ASSVCPASSWORD="Passw0rdSQL"
+      - /ISSVCPASSWORD="Passw0rdSQL"
+      - /RSSVCPASSWORD="Passw0rdSQL"
+      - /IAcceptSQLServerLicenseTerms
+      - /SAPWD="Passw0rdSQL"
+    state: present
+
